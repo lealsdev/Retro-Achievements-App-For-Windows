@@ -1,0 +1,29 @@
+
+[INFOTYPES]
+
+[OPTIONS]
+Auto Index=No
+Binary Index=Yes
+Binary TOC=No
+Compatibility=1.1 or later
+Compiled File=RetroAchievements.chm
+Contents File=RetroAchievements.hhc
+Index File=RetroAchievements.hhk
+Error log file=RetroAchievements.log.txt
+Full-text search=Yes
+Language=0x409 English (United States)
+Title=Retro Achievements For Windows Help
+Default Topic=Welcome to Retro Achievements.html
+Default Window=
+Default Font=Arial, 9, 000
+Create CHI file=No
+Full text search stop list file=
+Display compile notes=Yes
+Display compile progress=Yes
+
+[FILES]
+Welcome to Retro Achievements.html
+Login.html
+Top 10 Users.html
+Games and Achievements.html
+Notifications.html

@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="KEL CHM Creator v.1.4.0.0">
+<!-- Sitemap 1.0 -->
+</HEAD>
+<BODY>
+<OBJECT type="text/site properties">
+	<param name="ImageType" value="Book">
+	<param name="Window Styles" value="0x27">
+	<param name="ExWindow Styles" value="0x100">
+	<param name="comment" value="title:Online Help">
+	<param name="comment" value="base:index.htm">
+</OBJECT>
+<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Retro Achievements App for Windows">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Welcome to Retro Achievements App for Windows">
+			<param name="Local" value="Welcome to Retro Achievements.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Login">
+			<param name="Local" value="Login.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Top 10 Users">
+			<param name="Local" value="Top 10 Users.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Games and Achievements">
+			<param name="Local" value="Games and Achievements.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Notifications">
+			<param name="Local" value="Notifications.html">
+			</OBJECT>
+	</UL>
+</UL>
+</BODY>
+</HTML>
