@@ -1,4 +1,4 @@
-# Retro-Achievements-App-For-Windows V 1.0.0
+# Retro Achievements App For Windows
 
 With Retro Achievements App for Windows you will:
 
