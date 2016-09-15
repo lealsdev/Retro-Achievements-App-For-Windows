@@ -37,56 +37,70 @@ namespace RetroAchievementsApp
     public static class RegistryInfo
     {
         /// <summary>
-        /// Save the new rank value on regedit.
+        /// SOFTWARE
+        /// </summary>
+        const string REGISTRY_KEY_SOFTWARE = "SOFTWARE";
+
+        /// <summary>
+        /// RetroAchievements
+        /// </summary>
+        const string REGISTRY_KEY_RETRO_ACHIEVEMENTS = "RetroAchievements";
+
+        /// <summary>
+        /// User
+        /// </summary>
+        const string REGISTRY_VALUE_USER = "User";
+
+        /// <summary>
+        /// Rank
+        /// </summary>
+        const string REGISTRY_VALUE_RANK = "Rank";
+
+
+        /// <summary>
+        /// Saves the new rank value on regedit.
         /// </summary>
         /// <param name="rank">The current user's rank.</param>
         public static void SaveRankRegistry(string rank)
         {
-            RegistryKey software = Registry.CurrentUser.OpenSubKey("SOFTWARE", true);
-            RegistryKey retroAchievements = software.CreateSubKey("RetroAchievements");
-            retroAchievements.SetValue("Rank", rank);
+            RegistryKey retroAchievements = GetRetroAchievementsRegistry();
+            retroAchievements.SetValue(REGISTRY_VALUE_RANK, rank);
         }
 
         /// <summary>
-        /// Get the current users rank
+        /// Gets the current users rank
         /// </summary>
         /// <returns>The rank saved on registry.</returns>
         public static string GetRankRegistry()
         {
-            RegistryKey software = Registry.CurrentUser.OpenSubKey("SOFTWARE");
-            RegistryKey retroAchievements = software.OpenSubKey("RetroAchievements");
+            RegistryKey retroAchievements = GetRetroAchievementsRegistry();
 
             if (retroAchievements == null)
                 return null;
 
-            Object rank = retroAchievements.GetValue("Rank");
+            Object rank = retroAchievements.GetValue(REGISTRY_VALUE_RANK);
 
-            if (rank == null)
-                return null;
-
-            return rank.ToString();
+            return rank == null ? null : rank.ToString();
         }
 
         /// <summary>
-        /// Save the user in registry.
+        /// Saves the user in registry.
         /// </summary>
         public static void SaveUserRegistry(string user)
         {
-            RegistryKey software = Registry.CurrentUser.OpenSubKey("SOFTWARE", true);
-            RegistryKey retroAchievements = software.CreateSubKey("RetroAchievements");
-            retroAchievements.SetValue("User", user.Trim());
+            RegistryKey retroAchievements = GetRetroAchievementsRegistry();
+            retroAchievements.SetValue(REGISTRY_VALUE_USER, user.Trim());
 
             UserInfo.Login = user.Trim();
         }
 
         /// <summary>
-        /// Update the current user on registry.
+        /// Updates the current user on registry.
         /// </summary>
         public static void ChangeUserRegistry(string user)
         {
-            RegistryKey software = Registry.CurrentUser.OpenSubKey("SOFTWARE", true);
-            RegistryKey retroAchievements = software.CreateSubKey("RetroAchievements");
-            retroAchievements.SetValue("User", user.Trim());
+            RegistryKey retroAchievements = GetRetroAchievementsRegistry();
+            retroAchievements.SetValue(REGISTRY_VALUE_USER, user.Trim());
 
             UserInfo.Login = user.Trim();
 
@@ -95,23 +109,31 @@ namespace RetroAchievementsApp
         }
 
         /// <summary>
-        /// Get the current user.
+        /// Gets the current user.
         /// </summary>
         /// <returns>Return the current user's username</returns>
         public static string GetUserRegistry()
         {
-            RegistryKey software = Registry.CurrentUser.OpenSubKey("SOFTWARE");
-            RegistryKey retroAchievements = software.OpenSubKey("RetroAchievements");
+            RegistryKey retroAchievements = GetRetroAchievementsRegistry();
 
             if (retroAchievements == null)
                 return null;
 
-            Object user = retroAchievements.GetValue("User");
+            Object user = retroAchievements.GetValue(REGISTRY_VALUE_USER);
 
-            if (user == null)
-                return null;
+            return user == null ? null : user.ToString();
+        }
 
-            return user.ToString();
+        /// <summary>
+        /// Returns the RetroAchievements Registry Key.
+        /// </summary>
+        /// <returns>RA's registry.</returns>
+        private static RegistryKey GetRetroAchievementsRegistry()
+        {
+            RegistryKey software = Registry.CurrentUser.OpenSubKey(REGISTRY_KEY_SOFTWARE, true);
+            RegistryKey retroAchievements = software.CreateSubKey(REGISTRY_KEY_RETRO_ACHIEVEMENTS);
+
+            return retroAchievements;
         }
     }
 }

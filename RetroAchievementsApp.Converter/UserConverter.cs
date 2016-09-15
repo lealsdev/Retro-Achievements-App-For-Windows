@@ -34,10 +34,13 @@ using Newtonsoft.Json;
 
 namespace RetroAchievementsApp.Converter
 {
+    /// <summary>
+    /// User API Methods
+    /// </summary>
     public class UserConverter
     {
         /// <summary>
-        /// Get rank and score of the connected user.
+        /// Gets the rank and score of the connected user.
         /// </summary>
         /// <returns>Rank and Score model.</returns>
         public static UserRankAndScoreModel GetUserRankAndScore()
@@ -53,7 +56,7 @@ namespace RetroAchievementsApp.Converter
         }
 
         /// <summary>
-        /// Get the list of games played by the current user.
+        /// Gets the list of games played by the current user.
         /// </summary>
         /// <returns>The list of games played.</returns>
         public static PlayedGamesModel GetAllUserPlayedGames()
@@ -69,7 +72,7 @@ namespace RetroAchievementsApp.Converter
         }
 
         /// <summary>
-        /// Get the last game played by the current user.
+        /// Gets the last game played by the current user.
         /// </summary>
         /// <returns>The last game played by the user.</returns>
         public static PlayedGamesModel GetLastUserPlayedGame()

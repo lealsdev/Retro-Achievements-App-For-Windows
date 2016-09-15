@@ -39,6 +39,9 @@ using Newtonsoft.Json;
 
 namespace RetroAchievementsApp.UserControls
 {
+    /// <summary>
+    /// Played Game Info
+    /// </summary>
     public partial class PlayedGameInfo : UserControl
     {
         internal PlayedGamesModel.PlayedGame PlayedGame;
@@ -61,13 +64,7 @@ namespace RetroAchievementsApp.UserControls
         {
             try
             {
-                lblConsole.Text = this.PlayedGame.ConsoleName;
-                lblTitle.Text = this.PlayedGame.Title;
-                lblPossibleAchievements.Text = this.PlayedGame.NumPossibleAchievements;
-                lblPossibleScore.Text = this.PlayedGame.PossibleScore;
-                lblAchievementsAchieved.Text = this.PlayedGame.NumAchieved;
-                lblScoreAchieved.Text = this.PlayedGame.ScoreAchieved;
-                lblLastTimePlayed.Text = this.PlayedGame.LastPlayed;
+                this.UpdatePlayedGameInfo(this.PlayedGame);
 
                 picGameImage.ImageLocation = String.Concat("http://i.retroachievements.org", this.PlayedGame.ImageIcon);
             }
@@ -78,7 +75,7 @@ namespace RetroAchievementsApp.UserControls
         }
 
         /// <summary>
-        /// Open or close the achievements list.
+        /// Opens or closes the achievements list.
         /// </summary>
         /// <param name="sender">The game picturebox.</param>
         /// <param name="e">Event arguments.</param>
@@ -143,6 +140,9 @@ namespace RetroAchievementsApp.UserControls
         {
             try
             {
+                if (!Utils.IsConnectedToInternet())
+                    return;
+
                 if (this.Parent == null || this.Parent.Controls.Count == 0)
                     return;
 
@@ -150,13 +150,13 @@ namespace RetroAchievementsApp.UserControls
                 {
                     GameInfoAndUserProgressModel model = GameConverter.GetGameInfoAndUserProgress(this.PlayedGame.GAMEID);
 
-                    bool achievementUpdate = false;
+                    bool achievementUpdated = false;
                     if (gameAchievements._gameInfoAndUserProgressModel.Achievements.Count != model.Achievements.Count)
                         return;
 
-                    achievementUpdate = this.FindUpdatedAchievements(model);
+                    achievementUpdated = this.FindUpdatedAchievements(model);
 
-                    if (achievementUpdate)
+                    if (achievementUpdated)
                     {
                         this.Controls.Remove(gameAchievements);
 
@@ -182,7 +182,7 @@ namespace RetroAchievementsApp.UserControls
         }
 
         /// <summary>
-        /// Look for updated achievements.
+        /// Looks for updated achievements.
         /// </summary>
         /// <param name="model">Achievements returned from RA's server.</param>
         /// <returns>Indicates that an achievement needs to be updated.</returns>

@@ -35,7 +35,7 @@ namespace RetroAchievementsApp.RAAPI
     public class UserAPI : APIBase
     {
         /// <summary>
-        /// Get rank and score of the connected user.
+        /// Gets the rank and score of the connected user.
         /// </summary>
         /// <returns>Rank and score json.</returns>
         public string GetUserRankAndScore()
@@ -49,7 +49,7 @@ namespace RetroAchievementsApp.RAAPI
         }
 
         /// <summary>
-        /// Get the list of games played by the current user.
+        /// Gets the list of games played by the current user.
         /// </summary>
         /// <returns>The list of games played.</returns>
         public string GetAllUserPlayedGames()
@@ -58,7 +58,7 @@ namespace RetroAchievementsApp.RAAPI
         }
 
         /// <summary>
-        /// Get the last game played by the current user.
+        /// Gets the last game played by the current user.
         /// </summary>
         /// <returns>The last game played by the user.</returns>
         public string GetLastUserPlayedGame()
@@ -67,7 +67,7 @@ namespace RetroAchievementsApp.RAAPI
         }
 
         /// <summary>
-        /// Get the list of games played by the current user
+        /// Gets the list of games played by the current user
         /// limited by the number of games to recover variable.
         /// (desc)
         /// </summary>

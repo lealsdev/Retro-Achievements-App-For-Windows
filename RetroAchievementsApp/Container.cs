@@ -44,6 +44,17 @@ namespace RetroAchievementsApp
 {
     public partial class Container : Form
     {
+        /// <summary>
+        /// Invalid user.
+        /// </summary>
+        const string INVALID_USER_MESSAGE = "Invalid user.";
+
+        /// <summary>
+        /// wait...
+        /// </summary>
+        const string WAIT_MESSAGE = "wait...";
+
+
         Splash _splash;
 
         public Container(Splash splash)
@@ -54,11 +65,11 @@ namespace RetroAchievementsApp
         }
         
         /// <summary>
-        /// The Container loads the tabs, user controls
-        /// that contains the RA's information and user rank.
+        /// The Container loads the tabs and user controls
+        /// that contains the RA's information and user's rank.
         /// </summary>
-        /// <param name="sender">The Container Form</param>
-        /// <param name="e">Event Arguments</param>
+        /// <param name="sender">The Container Form.</param>
+        /// <param name="e">Event Arguments.</param>
         private void Container_Load(object sender, EventArgs e)
         {
             try
@@ -139,6 +150,8 @@ namespace RetroAchievementsApp
                 txtUser.Text = String.Empty;
                 grbLogin.Visible = false;
                 grbChangeUser.Visible = true;
+
+                this._splash.timerPositionChange.Enabled = true;
             }
             catch (SecurityException ex)
             {
@@ -153,15 +166,14 @@ namespace RetroAchievementsApp
                 DefaultMessageAlerts.ShowErrorMessage(ex);
             }
             finally 
-            {
-                this._splash.timerPositionChange.Enabled = true;
+            {                
                 btnSave.Text = "Save";
                 grbLogin.Enabled = true;
             }
         }
 
         /// <summary>
-        /// Change the current user.
+        /// Changes the current user.
         /// </summary>
         /// <param name="sender">The change button.</param>
         /// <param name="e">Event arguments.</param>
@@ -171,7 +183,7 @@ namespace RetroAchievementsApp
             {
                 this._splash.timerPositionChange.Enabled = false;
 
-                btnChange.Text = "wait...";
+                btnChange.Text = WAIT_MESSAGE;
                 grbChangeUser.Enabled = false;
 
                 UserInfo.Login = txtChangeUser.Text.Trim();
@@ -180,7 +192,7 @@ namespace RetroAchievementsApp
                 if (userRankAndScoreModel.Rank == "1" && userRankAndScoreModel.Score == "0")
                 {
                     txtChangeUser.Text = UserInfo.Login = RegistryInfo.GetUserRegistry();
-                    MessageBox.Show("Invalid user.", "RetroAchievements", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(INVALID_USER_MESSAGE, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -189,6 +201,8 @@ namespace RetroAchievementsApp
                 lblRankPosition.Text = UserInfo.Rank;
 
                 RegistryInfo.ChangeUserRegistry(txtChangeUser.Text.Trim());
+
+                this._splash.timerPositionChange.Enabled = true;
 
                 this.LoadUserControls();
             }
@@ -205,8 +219,7 @@ namespace RetroAchievementsApp
                 DefaultMessageAlerts.ShowErrorMessage(ex);
             }
             finally
-            {
-                this._splash.timerPositionChange.Enabled = true;
+            {                
                 btnChange.Text = "Change";
                 grbChangeUser.Enabled = true;
             }
@@ -235,15 +248,18 @@ namespace RetroAchievementsApp
         }
 
         /// <summary>
-        /// Loads all app's user controls.
+        /// Loads all user controls.
         /// </summary>
         private void LoadUserControls()
         {
+            if (!Utils.IsConnectedToInternet())
+                return;
+
             tabControlRA.Visible = true;
 
-            UserControls.TopTenUsers t = new UserControls.TopTenUsers();
-            tabTopTenUsers.Controls.Add(t);
-            t.Location = new Point(20, 20);
+            UserControls.TopTenUsers topTeenUsers = new UserControls.TopTenUsers();
+            tabTopTenUsers.Controls.Add(topTeenUsers);
+            topTeenUsers.Location = new Point(20, 20);
 
             tabPlayedGames.Controls.Clear();
             PlayedGamesInfo playedGamesInfo = new PlayedGamesInfo();

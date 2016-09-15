@@ -31,17 +31,17 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Splash));
             this.pictureBoxRALogo = new System.Windows.Forms.PictureBox();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.pgbLoad = new System.Windows.Forms.ProgressBar();
             this.backgroundWorkerUser = new System.ComponentModel.BackgroundWorker();
             this.notifyIconRA = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStripRA = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuClose = new System.Windows.Forms.ToolStripMenuItem();
-            this.timerPositionChange = new System.Windows.Forms.Timer(this.components);
-            this.timerAchievementEarned = new System.Windows.Forms.Timer(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.timerPositionChange = new System.Windows.Forms.Timer(this.components);
+            this.timerAchievementEarned = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRALogo)).BeginInit();
             this.contextMenuStripRA.SuspendLayout();
             this.SuspendLayout();
@@ -55,18 +55,18 @@
             this.pictureBoxRALogo.TabIndex = 0;
             this.pictureBoxRALogo.TabStop = false;
             // 
-            // progressBar1
+            // pgbLoad
             // 
-            this.progressBar1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.progressBar1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.progressBar1.Location = new System.Drawing.Point(2, 103);
-            this.progressBar1.Maximum = 10;
-            this.progressBar1.Minimum = 1;
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(239, 23);
-            this.progressBar1.Step = 2;
-            this.progressBar1.TabIndex = 1;
-            this.progressBar1.Value = 1;
+            this.pgbLoad.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.pgbLoad.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.pgbLoad.Location = new System.Drawing.Point(2, 103);
+            this.pgbLoad.Maximum = 10;
+            this.pgbLoad.Minimum = 1;
+            this.pgbLoad.Name = "pgbLoad";
+            this.pgbLoad.Size = new System.Drawing.Size(239, 23);
+            this.pgbLoad.Step = 2;
+            this.pgbLoad.TabIndex = 1;
+            this.pgbLoad.Value = 1;
             // 
             // backgroundWorkerUser
             // 
@@ -91,22 +91,41 @@
             this.toolStripMenuItemHelp,
             this.toolStripMenuItemAbout});
             this.contextMenuStripRA.Name = "contextMenuStripRA";
-            this.contextMenuStripRA.Size = new System.Drawing.Size(153, 120);
+            this.contextMenuStripRA.Size = new System.Drawing.Size(108, 98);
             // 
             // toolStripMenuItemOpen
             // 
             this.toolStripMenuItemOpen.Enabled = false;
             this.toolStripMenuItemOpen.Name = "toolStripMenuItemOpen";
-            this.toolStripMenuItemOpen.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemOpen.Size = new System.Drawing.Size(107, 22);
             this.toolStripMenuItemOpen.Text = "Open";
             this.toolStripMenuItemOpen.Click += new System.EventHandler(this.toolStripMenuItemOpen_Click);
             // 
             // closeToolStripMenuClose
             // 
             this.closeToolStripMenuClose.Name = "closeToolStripMenuClose";
-            this.closeToolStripMenuClose.Size = new System.Drawing.Size(152, 22);
+            this.closeToolStripMenuClose.Size = new System.Drawing.Size(107, 22);
             this.closeToolStripMenuClose.Text = "Close";
             this.closeToolStripMenuClose.Click += new System.EventHandler(this.closeToolStripMenuClose_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(104, 6);
+            // 
+            // toolStripMenuItemHelp
+            // 
+            this.toolStripMenuItemHelp.Name = "toolStripMenuItemHelp";
+            this.toolStripMenuItemHelp.Size = new System.Drawing.Size(107, 22);
+            this.toolStripMenuItemHelp.Text = "Help";
+            this.toolStripMenuItemHelp.Click += new System.EventHandler(this.toolStripMenuItemHelp_Click);
+            // 
+            // toolStripMenuItemAbout
+            // 
+            this.toolStripMenuItemAbout.Name = "toolStripMenuItemAbout";
+            this.toolStripMenuItemAbout.Size = new System.Drawing.Size(107, 22);
+            this.toolStripMenuItemAbout.Text = "About";
+            this.toolStripMenuItemAbout.Click += new System.EventHandler(this.toolStripMenuItemAbout_Click);
             // 
             // timerPositionChange
             // 
@@ -119,32 +138,13 @@
             this.timerAchievementEarned.Interval = 5000;
             this.timerAchievementEarned.Tick += new System.EventHandler(this.timerAchievementEarned_Tick);
             // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
-            // 
-            // toolStripMenuItemHelp
-            // 
-            this.toolStripMenuItemHelp.Name = "toolStripMenuItemHelp";
-            this.toolStripMenuItemHelp.Size = new System.Drawing.Size(152, 22);
-            this.toolStripMenuItemHelp.Text = "Help";
-            this.toolStripMenuItemHelp.Click += new System.EventHandler(this.toolStripMenuItemHelp_Click);
-            // 
-            // toolStripMenuItemAbout
-            // 
-            this.toolStripMenuItemAbout.Name = "toolStripMenuItemAbout";
-            this.toolStripMenuItemAbout.Size = new System.Drawing.Size(152, 22);
-            this.toolStripMenuItemAbout.Text = "About";
-            this.toolStripMenuItemAbout.Click += new System.EventHandler(this.toolStripMenuItemAbout_Click);
-            // 
             // Splash
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(524, 129);
-            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.pgbLoad);
             this.Controls.Add(this.pictureBoxRALogo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
@@ -152,6 +152,7 @@
             this.Name = "Splash";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Retro Achievements";
             this.Shown += new System.EventHandler(this.Splash_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRALogo)).EndInit();
             this.contextMenuStripRA.ResumeLayout(false);
@@ -162,7 +163,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBoxRALogo;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.ProgressBar pgbLoad;
         private System.ComponentModel.BackgroundWorker backgroundWorkerUser;
         private System.Windows.Forms.NotifyIcon notifyIconRA;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripRA;

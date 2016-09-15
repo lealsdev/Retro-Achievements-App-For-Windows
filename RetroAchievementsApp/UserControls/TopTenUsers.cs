@@ -44,13 +44,15 @@ namespace RetroAchievementsApp.UserControls
     /// </summary>
     public partial class TopTenUsers : UserControl
     {
+        const string USER_PIC = "http://retroachievements.org/UserPic/{0}.png";
+
         public TopTenUsers()
         {
             InitializeComponent();
         }
 
         /// <summary>
-        /// Get the top ten users to show on usercontrol.
+        /// Loads the top ten users usercontrol.
         /// </summary>
         /// <param name="sender">The user control.</param>
         /// <param name="e">Event arguments.</param>
@@ -58,6 +60,9 @@ namespace RetroAchievementsApp.UserControls
         {
             try
             {
+                if (!Utils.IsConnectedToInternet())
+                    return;
+
                 if (!String.IsNullOrWhiteSpace(UserInfo.Login))
                     this.LoadTopTenUsers();
             }
@@ -79,12 +84,15 @@ namespace RetroAchievementsApp.UserControls
         }
 
         /// <summary>
-        /// Reload the top ten user info.
+        /// Reloads the top ten users info.
         /// </summary>
         /// <param name="sender">The timer object.</param>
         /// <param name="e">Event arguments.</param>
         private void timerTopTenUsers_Tick(object sender, EventArgs e)
         {
+            if (!Utils.IsConnectedToInternet())
+                return;
+
             if (!String.IsNullOrWhiteSpace(UserInfo.Login) && (this.Parent.Parent as TabControl).SelectedIndex == 0)
             {
                 try
@@ -128,24 +136,14 @@ namespace RetroAchievementsApp.UserControls
                 PictureBox p = new PictureBox();                
                 p.Location = new System.Drawing.Point(3, y);
                 p.Size = new System.Drawing.Size(20, 15);
-                p.ImageLocation = String.Format("http://retroachievements.org/UserPic/{0}.png", model.Users[i].Name);
+                p.ImageLocation = String.Format(USER_PIC, model.Users[i].Name);
                 p.SizeMode = PictureBoxSizeMode.StretchImage;
                 this.tableTopTenUsers.Controls.Add(p, 0, i);
 
-                lbl = new Label();
-                lbl.AutoSize = true;
-                lbl.Font = new System.Drawing.Font("AR CENA", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                lbl.Location = new System.Drawing.Point(100, y);
-                lbl.Size = new System.Drawing.Size(50, 25);
-                lbl.Text = string.Format("{0}  {1}", i+1, model.Users[i].Name);
+                lbl = GetConfiguredLabel(y, 100, 50, model.Users[i].Name.Trim());
                 this.tableTopTenUsers.Controls.Add(lbl, 1, i);
 
-                lbl = new Label();
-                lbl.AutoSize = true;
-                lbl.Font = new System.Drawing.Font("AR CENA", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                lbl.Location = new System.Drawing.Point(308, y);
-                lbl.Size = new System.Drawing.Size(56, 25);
-                lbl.Text = String.Format("{0}({1})", model.Users[i].BluePoints, model.Users[i].WhitePoints);
+                lbl = GetConfiguredLabel(y, 308, 56, String.Format("{0}({1})", model.Users[i].BluePoints, model.Users[i].WhitePoints));
                 this.tableTopTenUsers.Controls.Add(lbl, 2, i);
 
                 y += toNextY;
@@ -153,7 +151,26 @@ namespace RetroAchievementsApp.UserControls
         }
 
         /// <summary>
-        /// Get top ten user's data
+        /// Gets a label with font, location
+        /// and size configured.
+        /// </summary>
+        /// <param name="y">Label's y position.</param>
+        /// /// <param name="x">Label's x position.</param>
+        /// <param name="sizeWidth">Width of the size object.</param>
+        /// <returns>Label configured.</returns>
+        private Label GetConfiguredLabel(int y, int x, int sizeWidth, string content)
+        {
+            Label label = new Label();
+            label.AutoSize = true;
+            label.Font = new System.Drawing.Font("AR CENA", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            label.Location = new System.Drawing.Point(x, y);
+            label.Size = new System.Drawing.Size(sizeWidth, 25);
+            label.Text = content;
+            return label;
+        }
+
+        /// <summary>
+        /// Gets top ten user's data
         /// </summary>
         /// <returns>Top ten users model</returns>
         private TopTenUsersModel GetRATopTenUsers()

@@ -35,7 +35,7 @@ namespace RetroAchievementsApp.RAAPI
     public class GeneralAPI : APIBase
     {
         /// <summary>
-        /// Get Top Ten Users by Points.
+        /// Gets Top Ten Users by Points.
         /// </summary>
         /// <returns>Top ten users json.</returns>
         public string GetTopTenUsers()

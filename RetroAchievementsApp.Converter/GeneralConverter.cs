@@ -35,12 +35,12 @@ using RetroAchievementsApp.Model;
 namespace RetroAchievementsApp.Converter
 {
     /// <summary>
-    /// Has the general API methods.
+    /// General API methods.
     /// </summary>
     public static class GeneralConverter
     {
         /// <summary>
-        /// Get Top Ten Users by Points.
+        /// Gets Top Ten Users by Points.
         /// </summary>
         /// <returns>Top ten users model.</returns>
         public static TopTenUsersModel GetTopTenUsers()

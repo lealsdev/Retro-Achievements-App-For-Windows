@@ -35,10 +35,13 @@ using Newtonsoft.Json.Linq;
 
 namespace RetroAchievementsApp.Converter
 {
+    /// <summary>
+    /// Game API
+    /// </summary>
     public class GameConverter
     {
         /// <summary>
-        /// Get the user progress of a game.
+        /// Gets the user progress of a game.
         /// </summary>
         /// <param name="gameID">The ID of the game.</param>
         /// <returns>The complete list of achievements of that game.</returns>

@@ -35,7 +35,7 @@ namespace RetroAchievementsApp.RAAPI
     public class GameAPI : APIBase
     {
         /// <summary>
-        /// Get the user progress of a game.
+        /// Gets the user progress of a game.
         /// </summary>
         /// <param name="gameID">The ID of the game.</param>
         /// <returns>The complete list of achievements of that game.</returns>

@@ -49,12 +49,16 @@ namespace RetroAchievementsApp.UserControls
         /// <summary>
         /// Loads the achievements.
         /// </summary>
-        /// <param name="sender">This form</param>
-        /// <param name="e">Event arguments</param>
+        /// <param name="sender">This form.</param>
+        /// <param name="e">Event arguments.</param>
         private void GameAchievements_Load(object sender, EventArgs e)
         {
+
             try
             {
+                if (!Utils.IsConnectedToInternet())
+                    return;
+
                 for (int i = 0; i < this._gameInfoAndUserProgressModel.Achievements.Count; ++i)
                 {
                     PictureBox badge = this.LoadBadge(this._gameInfoAndUserProgressModel.Achievements[i]);
@@ -125,6 +129,7 @@ namespace RetroAchievementsApp.UserControls
         private string LoadToolTipContent(GameInfoAndUserProgressModel.Achievement achievement)
         {
             StringBuilder toolTipContent = new StringBuilder();
+            toolTipContent.AppendLine(achievement.Title);
             toolTipContent.AppendLine(achievement.Description);
             toolTipContent.Append("Date Earned: ");
             toolTipContent.AppendLine(achievement.DateEarned);

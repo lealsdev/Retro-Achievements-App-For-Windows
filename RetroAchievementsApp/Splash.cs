@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/. 
 //
-// Splash.cs - Initial application load.
+// Splash.cs - Application's load.
 // 
 // Email: lealves_82@yahoo.com.br
 // RetroAchievements username: FitaOuCartucho
@@ -42,6 +42,48 @@ namespace RetroAchievementsApp
 {
     public partial class Splash : Form
     {
+        /// <summary>
+        /// You lost {0} rank position
+        /// </summary>
+        const string RANK_POSITION_LOST_MESSAGE = "You lost {0} rank position";
+
+        /// <summary>
+        /// You lost {0} rank positions
+        /// </summary>
+        const string RANK_POSITIONS_LOST_MESSAGE = "You lost {0} rank positions";
+
+        /// <summary>
+        /// You won {0} rank position
+        /// </summary>
+        const string RANK_POSITION_WON_MESSAGE = "You won {0} rank position";
+
+        /// <summary>
+        /// You won {0} rank positions
+        /// </summary>
+        const string RANK_POSITIONS_WON_MESSAGE = "You won {0} rank positions";
+
+        /// <summary>
+        /// Now your position is {0}
+        /// </summary>
+        const string NEW_RANK_POSITION_MESSAGE = "Now your position is {0}";
+
+        /// <summary>
+        /// Earned {0} of {1} achievements
+        /// </summary>
+        const string ACHIEVEMENTS_EARNED_MESSAGE = "Earned {0} of {1} achievements";
+
+        /// <summary>
+        /// Do you want to close Retro Achievements Application?
+        /// </summary>
+        const string CLOSE_APPLICATION_QUESTION_MESSAGE = "Do you want to close Retro Achievements Application?";
+
+        /// <summary>
+        /// 10000
+        /// </summary>
+        const int NOTIFY_BALLON_TIP_TIMEOUT = 10000;
+
+
+
         PlayedGamesModel playedGamesModel;
 
         public Splash()
@@ -83,7 +125,7 @@ namespace RetroAchievementsApp
         }
 
         /// <summary>
-        /// Do the load on a separate thread.
+        /// Loads the app on a separate thread.
         /// </summary>
         /// <param name="sender">BackgroundWorker.</param>
         /// <param name="e">Event arguments.</param>
@@ -91,34 +133,37 @@ namespace RetroAchievementsApp
         {
             try
             {
-                backgroundWorkerUser.ReportProgress(2);
+                backgroundWorkerUser.ReportProgress(3);
                 LoadLoginUser();
 
-                backgroundWorkerUser.ReportProgress(2);
+                backgroundWorkerUser.ReportProgress(3);
                 LoadRank();
 
-                backgroundWorkerUser.ReportProgress(4);
+                backgroundWorkerUser.ReportProgress(3);
                 timerPositionChange_Tick(null, null);
 
-                backgroundWorkerUser.ReportProgress(2);
+                backgroundWorkerUser.ReportProgress(1);
                 LoadLastGameInfo();
             }
             catch (WebException ex)
             {
                 DefaultMessageAlerts.ShowErrorMessage(ex);
+                Application.Exit();
             }
             catch (JsonReaderException ex)
             {
                 DefaultMessageAlerts.ShowErrorMessage(ex);
+                Application.Exit();
             }
             catch (Exception ex)
             {
                 DefaultMessageAlerts.ShowErrorMessage(ex);
+                Application.Exit();
             }
         }
 
         /// <summary>
-        /// Change the progress bar value.
+        /// Changes the progress bar value.
         /// </summary>
         /// <param name="sender">BackgroundWorker.</param>
         /// <param name="e">Event arguments.</param>
@@ -126,7 +171,7 @@ namespace RetroAchievementsApp
         {
             try
             {
-                progressBar1.Increment(e.ProgressPercentage);
+                pgbLoad.Increment(e.ProgressPercentage);
             }
             catch (Exception ex)
             {
@@ -135,7 +180,7 @@ namespace RetroAchievementsApp
         }
 
         /// <summary>
-        /// Inform the main thread that the background process complete his work.
+        /// Informs the main thread that the background process completes his work.
         /// </summary>
         /// <param name="sender">BackgroundWorker.</param>
         /// <param name="e">Event arguments.</param>
@@ -146,32 +191,29 @@ namespace RetroAchievementsApp
                 timerPositionChange.Enabled = true;
                 timerAchievementEarned.Enabled = true;
                 this.Visible = false;
-                Container c = new Container(this);
-                c.ShowDialog();
+                Container container = new Container(this);
+                container.ShowDialog();
             }
             catch (WebException ex)
             {
                 timerPositionChange.Enabled = false;
                 DefaultMessageAlerts.ShowErrorMessage(ex);
-                this.Close();
             }
             catch (JsonReaderException ex)
             {
                 timerPositionChange.Enabled = false;
                 DefaultMessageAlerts.ShowErrorMessage(ex);
-                this.Close();
             }
             catch (Exception ex)
             {
                 timerPositionChange.Enabled = false;
                 DefaultMessageAlerts.ShowErrorMessage(ex);
-                this.Close();
             }
         }
 
         /// <summary>
         /// Verify the current user position in rank.
-        /// If the user position has changed, show a baloon tip
+        /// If the user position has changed, shows a baloon tip
         /// with that information.
         /// </summary>
         /// <param name="sender">The timer.</param>
@@ -180,6 +222,9 @@ namespace RetroAchievementsApp
         {
             try
             {
+                if (!Utils.IsConnectedToInternet())
+                    return;
+
                 if (!string.IsNullOrWhiteSpace(UserInfo.Login))
                 {
                     UserRankAndScoreModel model = UserConverter.GetUserRankAndScore();
@@ -234,14 +279,14 @@ namespace RetroAchievementsApp
         }
 
         /// <summary>
-        /// Closes the container form.
+        /// Closes the app.
         /// </summary>
         /// <param name="sender">Notify icon's menu item.</param>
         /// <param name="e">Event arguments.</param>
         private void closeToolStripMenuClose_Click(object sender, EventArgs e)
         {
             DialogResult result =
-                MessageBox.Show("Do you want to close Retro Achievements Application?", "Retro Achievements", MessageBoxButtons.YesNo);
+                MessageBox.Show(CLOSE_APPLICATION_QUESTION_MESSAGE, this.Text, MessageBoxButtons.YesNo);
 
             if (result == System.Windows.Forms.DialogResult.Yes)
                 this.Close();
@@ -257,6 +302,9 @@ namespace RetroAchievementsApp
         {
             try
             {
+                if (!Utils.IsConnectedToInternet())
+                    return;
+
                 PlayedGamesModel model = UserConverter.GetLastUserPlayedGame();
 
                 if (model.PlayedGames == null || model.PlayedGames.Count == 0 || this.playedGamesModel.PlayedGames.Count == 0)
@@ -269,17 +317,16 @@ namespace RetroAchievementsApp
                     model.PlayedGames[0].NumAchieved != this.playedGamesModel.PlayedGames[0].NumAchieved)
                 {
 
-                    String rankPositionChangedMessage = String.Format("Earned {0} of {1} achievements",
+                    String rankPositionChangedMessage = String.Format(ACHIEVEMENTS_EARNED_MESSAGE,
                         model.PlayedGames[0].NumAchieved, model.PlayedGames[0].NumPossibleAchievements);
 
-                    notifyIconRA.ShowBalloonTip(10000, model.PlayedGames[0].Title, rankPositionChangedMessage, ToolTipIcon.Info);
+                    notifyIconRA.ShowBalloonTip(NOTIFY_BALLON_TIP_TIMEOUT, model.PlayedGames[0].Title, rankPositionChangedMessage, ToolTipIcon.Info);
                 }
 
                 this.playedGamesModel = model;
             }
             catch (Exception ex)
             {
-                timerAchievementEarned.Enabled = false;
                 DefaultMessageAlerts.ShowErrorMessage(ex);
             }
         }
@@ -295,7 +342,7 @@ namespace RetroAchievementsApp
         }
 
         /// <summary>
-        /// Show the about form.
+        /// Shows the about form.
         /// </summary>
         /// <param name="sender">About menu item.</param>
         /// <param name="e">Event arguments.</param>
@@ -306,36 +353,26 @@ namespace RetroAchievementsApp
         }       
 
         /// <summary>
-        /// Load the user registered from windows registry.
+        /// Load the user from windows registry.
         /// </summary>
         private void LoadLoginUser()
         {
             string user = RegistryInfo.GetUserRegistry();
 
             if (user != null)
-            {
                 UserInfo.Login = user;
-            }
         }
 
         /// <summary>
-        /// load the user's rank in from windows registry.
+        /// load the user's rank from windows registry.
         /// </summary>
         private void LoadRank()
         {
-            string rank = RegistryInfo.GetRankRegistry();
-
-            if (rank == null)
-            {
-                UserInfo.Rank = null;
-                return;
-            }
-
-            UserInfo.Rank = rank.ToString();
+            UserInfo.Rank = RegistryInfo.GetRankRegistry();
         }
 
         /// <summary>
-        /// Load information about the last played game
+        /// Load information about the last played game.
         /// </summary>
         private void LoadLastGameInfo()
         {
@@ -343,7 +380,7 @@ namespace RetroAchievementsApp
         }
   
         /// <summary>
-        /// Shows a notifyicon's balloontip informing a won or lost rank position
+        /// Shows a notifyicon's balloontip informing the new position.
         /// </summary>
         /// <param name="model">Rank and Score model.</param>
         private void ShowRankPositionChanged(UserRankAndScoreModel model)
@@ -351,33 +388,28 @@ namespace RetroAchievementsApp
             int oldRank = int.Parse(UserInfo.Rank);
             int newRank = int.Parse(model.Rank);
 
-            String rankPositionChangedMessage = "";
-            String rankNewPositionMessage = "";
+            string rankPositionChangedMessage = String.Empty;
+            string rankNewPositionMessage = String.Empty;
 
             if (oldRank < newRank)
             {
                 int positionsLost = newRank - oldRank;
 
-                if (positionsLost == 1)
-                    rankPositionChangedMessage = String.Format("You lost {0} rank position", positionsLost);
-                else
-                    rankPositionChangedMessage = String.Format("You lost {0} rank positions", positionsLost);
-
-                rankNewPositionMessage = String.Format("Now your position is {0}", model.Rank);
+                rankPositionChangedMessage = positionsLost == 1
+                    ? string.Format(RANK_POSITION_LOST_MESSAGE, positionsLost)
+                    : string.Format(RANK_POSITIONS_LOST_MESSAGE, positionsLost);
             }
             else
             {
                 int positionsWon = oldRank - newRank;
 
-                if (positionsWon == 1)
-                    rankPositionChangedMessage = String.Format("You won {0} rank position", positionsWon);
-                else
-                    rankPositionChangedMessage = String.Format("You won {0} rank positions", positionsWon);
-
-                rankNewPositionMessage = String.Format("Now your position is {0}", model.Rank);
+                rankPositionChangedMessage = positionsWon == 1
+                    ? string.Format(RANK_POSITION_WON_MESSAGE, positionsWon)
+                    : string.Format(RANK_POSITIONS_WON_MESSAGE, positionsWon);
             }
 
-            notifyIconRA.ShowBalloonTip(10000, rankPositionChangedMessage, rankNewPositionMessage, ToolTipIcon.Info);
+            rankNewPositionMessage = string.Format(NEW_RANK_POSITION_MESSAGE, model.Rank);
+            notifyIconRA.ShowBalloonTip(NOTIFY_BALLON_TIP_TIMEOUT, rankPositionChangedMessage, rankNewPositionMessage, ToolTipIcon.Info);
         }
     }
 }

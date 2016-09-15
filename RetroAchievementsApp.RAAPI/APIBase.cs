@@ -51,7 +51,7 @@ namespace RetroAchievementsApp.RAAPI
         private const string USER_AND_KEY_QUERYSTRING_PARAMS = "?z={0}&y={1}";
 
         /// <summary>
-        /// Connect to the server and get the data.
+        /// Connects to the server and get the data.
         /// </summary>
         /// <param name="url">Url including querystring parameters.</param>
         /// <returns>Json returned by the server.</returns>
@@ -71,7 +71,7 @@ namespace RetroAchievementsApp.RAAPI
         }
 
         /// <summary>
-        /// Return a querystring formatted with Login and APIKEY info.
+        /// Returns a querystring formatted with Login and APIKEY info.
         /// </summary>
         /// <returns>Querystring.</returns>
         public static string GetUserInfoQuerystring()

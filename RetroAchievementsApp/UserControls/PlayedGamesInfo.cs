@@ -40,6 +40,9 @@ using Newtonsoft.Json;
 
 namespace RetroAchievementsApp.UserControls
 {
+    /// <summary>
+    /// Played Games info.
+    /// </summary>
     public partial class PlayedGamesInfo : UserControl
     {
         public PlayedGamesInfo()
@@ -56,6 +59,9 @@ namespace RetroAchievementsApp.UserControls
         {
             try
             {
+                if (!Utils.IsConnectedToInternet())
+                    return;
+
                 timerPlayedGamesInfo.Enabled = false;
 
                 pnlPlayedGames.Controls.Clear();
@@ -92,6 +98,9 @@ namespace RetroAchievementsApp.UserControls
         {
             try
             {
+                if (!Utils.IsConnectedToInternet())
+                    return;
+
                 PlayedGamesModel model = UserConverter.GetLastUserPlayedGame();
 
                 if (model.PlayedGames.Count > 0 && pnlPlayedGames.Controls.Count > 0)
@@ -122,14 +131,17 @@ namespace RetroAchievementsApp.UserControls
             }
             catch (WebException ex)
             {
+                this.timerPlayedGamesInfo.Enabled = false;
                 DefaultMessageAlerts.ShowErrorMessage(ex);
             }
             catch (JsonReaderException ex)
             {
+                this.timerPlayedGamesInfo.Enabled = false;
                 DefaultMessageAlerts.ShowErrorMessage(ex);
             }
             catch (Exception ex)
             {
+                this.timerPlayedGamesInfo.Enabled = false;
                 DefaultMessageAlerts.ShowErrorMessage(ex);
             }
             

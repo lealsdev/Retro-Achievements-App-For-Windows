@@ -38,78 +38,109 @@ namespace RetroAchievementsApp
     public static class DefaultMessageAlerts
     {
         /// <summary>
-        /// Show a WebException error.
+        /// Error details:
+        /// </summary>
+        const string ERROR_DETAILS_MESSAGE = "Error details:";
+
+        /// <summary>
+        /// Retro Achievements
+        /// </summary>
+        const string RETRO_ACHIEVEMENTS_MESSAGE = "Retro Achievements";
+
+        /// <summary>
+        /// Could not get RetroAchievement data on server.
+        /// </summary>
+        const string WEB_EXCEPTION_MESSAGE = "Could not get RetroAchievement data on server.";
+
+        /// <summary>
+        /// The data is in wrong format. Verify that the APIKEY is set correctly.
+        /// </summary>
+        const string JSON_EXCEPTION_MESSAGE = "The data is in wrong format. Verify that the APIKEY is set correctly.";
+
+        /// <summary>
+        /// You don't have permission to write or read windows registry.
+        /// </summary>
+        const string SECURITY_UNAUTHORIZED_EXCEPTION_MESSAGE = "You don't have permission to write or read windows registry.";
+
+        /// <summary>
+        /// An unexpected error ocurred.
+        /// </summary>
+        const string GENERIC_EXCEPTION_MESSAGE = "An unexpected error ocurred.";
+
+
+        /// <summary>
+        /// Shows a WebException error.
         /// </summary>
         /// <param name="ex">WebException exception.</param>
         public static void ShowErrorMessage(WebException ex)
         {
             StringBuilder errorMessage = new StringBuilder();
-            errorMessage.AppendLine("Could not get RetroAchievement data on server.");
+            errorMessage.AppendLine(WEB_EXCEPTION_MESSAGE);
             errorMessage.AppendLine();
-            errorMessage.AppendLine("Error details:");
+            errorMessage.AppendLine(ERROR_DETAILS_MESSAGE);
             errorMessage.Append(ex.Message);
 
-            MessageBox.Show(errorMessage.ToString(), "Retro Achievements", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+            MessageBox.Show(errorMessage.ToString(), RETRO_ACHIEVEMENTS_MESSAGE, MessageBoxButtons.OK, MessageBoxIcon.Error); 
         }
 
         /// <summary>
-        /// Show a JsonReaderException error.
+        /// Shows a JsonReaderException error.
         /// </summary>
         /// <param name="ex">JsonReaderException exception.</param>
         public static void ShowErrorMessage(JsonReaderException ex)
         {
             StringBuilder errorMessage = new StringBuilder();
-            errorMessage.AppendLine("The data is in wrong format. Verify that the APIKEY is set correctly.");
+            errorMessage.AppendLine(JSON_EXCEPTION_MESSAGE);
             errorMessage.AppendLine();
-            errorMessage.AppendLine("Error details:");
+            errorMessage.AppendLine(ERROR_DETAILS_MESSAGE);
             errorMessage.AppendLine(ex.Message);
 
-            MessageBox.Show(errorMessage.ToString(), "Retro Achievements", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(errorMessage.ToString(), RETRO_ACHIEVEMENTS_MESSAGE, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>
-        /// Show a SecurityException error.
+        /// Shows a SecurityException error.
         /// </summary>
         /// <param name="ex">SecurityException exception.</param>
         public static void ShowErrorMessage(SecurityException ex)
         {
             StringBuilder errorMessage = new StringBuilder();
-            errorMessage.AppendLine("You don't have permission to write or read windows registry.");
+            errorMessage.AppendLine(SECURITY_UNAUTHORIZED_EXCEPTION_MESSAGE);
             errorMessage.AppendLine();
-            errorMessage.AppendLine("Error details:");
+            errorMessage.AppendLine(ERROR_DETAILS_MESSAGE);
             errorMessage.AppendLine(ex.Message);
 
-            MessageBox.Show(errorMessage.ToString(), "Retro Achievements", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(errorMessage.ToString(), RETRO_ACHIEVEMENTS_MESSAGE, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>
-        /// Show an UnauthorizedAccessException error.
+        /// Shows an UnauthorizedAccessException error.
         /// </summary>
         /// <param name="ex">UnauthorizedAccessException exception.</param>
         public static void ShowErrorMessage(UnauthorizedAccessException ex)
         {
             StringBuilder errorMessage = new StringBuilder();
-            errorMessage.AppendLine("You don't have permission to write or read windows registry.");
+            errorMessage.AppendLine(SECURITY_UNAUTHORIZED_EXCEPTION_MESSAGE);
             errorMessage.AppendLine();
-            errorMessage.AppendLine("Error details:");
+            errorMessage.AppendLine(ERROR_DETAILS_MESSAGE);
             errorMessage.AppendLine(ex.Message);
 
-            MessageBox.Show(errorMessage.ToString(), "Retro Achievements", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(errorMessage.ToString(), RETRO_ACHIEVEMENTS_MESSAGE, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>
-        /// Show a generic Exception error.
+        /// Shows a generic Exception error.
         /// </summary>
         /// <param name="ex">Exception exception.</param>
         public static void ShowErrorMessage(Exception ex)
         {
             StringBuilder errorMessage = new StringBuilder();
-            errorMessage.AppendLine("An unexpected error ocurred.");
+            errorMessage.AppendLine(GENERIC_EXCEPTION_MESSAGE);
             errorMessage.AppendLine();
-            errorMessage.AppendLine("Error details:");
+            errorMessage.AppendLine(ERROR_DETAILS_MESSAGE);
             errorMessage.AppendLine(ex.Message);
 
-            MessageBox.Show(errorMessage.ToString(), "Retro Achievements", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(errorMessage.ToString(), RETRO_ACHIEVEMENTS_MESSAGE, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
