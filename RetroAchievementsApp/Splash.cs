@@ -106,20 +106,14 @@ namespace RetroAchievementsApp
             }
             catch (WebException ex)
             {
-                timerPositionChange.Enabled = false;
-                timerAchievementEarned.Enabled = false;
                 DefaultMessageAlerts.ShowErrorMessage(ex);
             }
             catch (JsonReaderException ex)
             {
-                timerPositionChange.Enabled = false;
-                timerAchievementEarned.Enabled = false;
                 DefaultMessageAlerts.ShowErrorMessage(ex);
             }
             catch (Exception ex)
             {
-                timerPositionChange.Enabled = false;
-                timerAchievementEarned.Enabled = false;
                 DefaultMessageAlerts.ShowErrorMessage(ex);
             }
         }
@@ -197,16 +191,19 @@ namespace RetroAchievementsApp
             catch (WebException ex)
             {
                 timerPositionChange.Enabled = false;
+                timerAchievementEarned.Enabled = false;
                 DefaultMessageAlerts.ShowErrorMessage(ex);
             }
             catch (JsonReaderException ex)
             {
                 timerPositionChange.Enabled = false;
+                timerAchievementEarned.Enabled = false;
                 DefaultMessageAlerts.ShowErrorMessage(ex);
             }
             catch (Exception ex)
             {
                 timerPositionChange.Enabled = false;
+                timerAchievementEarned.Enabled = false;
                 DefaultMessageAlerts.ShowErrorMessage(ex);
             }
         }
