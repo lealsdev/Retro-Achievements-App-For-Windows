@@ -1,5 +1,7 @@
 # Retro Achievements App For Windows
 
+[![retroachievements.png](https://i.postimg.cc/668QXDkC/retroachievements.png)](https://postimg.cc/23fYdX85)
+
 With Retro Achievements App for Windows you will:
 
 - See a list with the Top 10 Users;
